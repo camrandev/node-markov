@@ -26,32 +26,61 @@ class MarkovMachine {
 
   getChains() {
     const words = this.words;
-    const chain = {};
+    const chains = {};
 
     for (let i = 0; i < words.length; i++) {
       let word = words[i];
-      let nextWord = words[i + 1];
-      if (word in chain) {
-        chain[word].push(nextWord || null);
+      let nextWord = words[i + 1] || null;
+      if (word in chains) {
+        chains[word].push(nextWord);
       } else {
-        chain[word] = [];
-        chain[word].push(nextWord || null);
+        chains[word] = [nextWord];
       }
     }
-    return chain;
+    return chains;
   }
 
   /** Return random text from chains, starting at the first word and continuing
-   *  until it hits a null choice. */
+   *  until it hits a null choice.
+   *
+   * argument:
+   *    none
+   *
+   * returns:
+   *    New string
+   *
+   *    */
 
   getText() {
-    // TODO: implement this!
-    // - start at the first word in the input text
-    // - find a random word from the following-words of that
-    // - repeat until reaching the terminal null
+    let word = this.words[0];
+
+    const text = [];
+
+    while (word !== null) {
+      let randomIndex = this.getRandomIndex(word);
+      text.push(word);
+
+      word = this.chains[word][randomIndex];
+    }
+    return text.join(' ');
+  };
+
+
+  /** Return random index value based on word in chains.*/
+  getRandomIndex(word) {
+    return Math.floor(Math.random() * (this.chains[word].length));
   }
 }
 
 module.exports = {
   MarkovMachine,
 };
+
+let machine = new MarkovMachine("the cat in the hat");
+console.log(machine.getText());
+console.log(machine.getText());
+console.log(machine.getText());
+console.log(machine.getText());
+console.log(machine.getText());
+console.log(machine.getText());
+
