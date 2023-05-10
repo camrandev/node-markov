@@ -76,7 +76,9 @@ module.exports = {
   MarkovMachine,
 };
 
-let machine = new MarkovMachine("the cat in the hat");
+let machine = new MarkovMachine(
+  `Four score and seven years ago
+  `);
 console.log(machine.getText());
 console.log(machine.getChains())
 
