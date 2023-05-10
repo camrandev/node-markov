@@ -78,9 +78,6 @@ module.exports = {
 
 let machine = new MarkovMachine("the cat in the hat");
 console.log(machine.getText());
-console.log(machine.getText());
-console.log(machine.getText());
-console.log(machine.getText());
-console.log(machine.getText());
-console.log(machine.getText());
+console.log(machine.getChains())
+
 
